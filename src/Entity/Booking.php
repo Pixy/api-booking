@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=BookingRepository::class)
  */
 #[ApiResource(
-    normalizationContext: ['groups' => ['booking']]
+    normalizationContext: ['groups' => ['booking']],
+    denormalizationContext: ['groups' => ['booking:write']]
 )]
 class Booking
 {
@@ -25,20 +26,21 @@ class Booking
     /**
      * @ORM\Column(type="string", length=20)
      */
-    #[Groups(['lesson'])]
+    #[Groups(['lesson', 'booking:write'])]
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=Learner::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
+    #[Groups(['booking:write'])]
     private $learner;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lesson::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
-    #[Groups(['booking'])]
+    #[Groups(['booking', 'booking:write'])]
     private $lesson;
 
     public function getId(): ?int
