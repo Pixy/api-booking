@@ -25,7 +25,7 @@ class Booking
     /**
      * @ORM\Column(type="string", length=20)
      */
-    #[Groups(['booking'])]
+    #[Groups(['lesson'])]
     private $status;
 
     /**
@@ -38,7 +38,7 @@ class Booking
      * @ORM\ManyToOne(targetEntity=Lesson::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
-    #[Groups(['lesson'])]
+    #[Groups(['booking'])]
     private $lesson;
 
     public function getId(): ?int

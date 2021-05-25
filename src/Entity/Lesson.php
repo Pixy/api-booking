@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\LessonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=LessonRepository::class)
  */
 #[ApiResource(
-    normalizationContext: ['groups' => ['booking', 'lesson']]
+    normalizationContext: ['groups' => ['lesson']]
 )]
 class Lesson
 {
@@ -39,7 +40,7 @@ class Lesson
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="lesson", orphanRemoval=true)
      */
-    #[Groups(['booking', 'lesson'])]
+    #[Groups(['lesson'])]
     private $bookings;
 
     public function __construct()
